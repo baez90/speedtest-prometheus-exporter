@@ -1,0 +1,25 @@
+#########
+# files #
+#########
+
+**/cov.out
+**/cov-raw.out
+**/*.so
+*.key
+*.pem
+/inetmock
+/imctl
+./main
+**/*.mock.go
+**/*_enum.go
+**/*.pb.go
+
+###############
+# directories #
+###############
+
+.idea/
+.vscode/
+dist/
+out/
+.task/

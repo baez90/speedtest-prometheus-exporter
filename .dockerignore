@@ -1,0 +1,28 @@
+###############
+# Directories #
+###############
+
+.git/
+.github/
+.idea/
+.vscode/
+deploy/
+dist/
+doc/
+
+#########
+# Files #
+#########
+
+.gitattributes
+.gitignore
+.dockerignore
+.goreleaser.yml
+*.out
+main
+inetmock
+imctl
+README.md
+LICENSE
+Dockerfile
+config.yaml

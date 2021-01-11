@@ -1,0 +1,33 @@
+builds:
+  - id: speedtest-prometheus-exporter
+    binary: speedtest-exporter
+    main: ./main.go
+    ldflags:
+      - -w -s
+    goos:
+      - darwin
+      - freebsd
+      - linux
+      - netbsd
+      - openbsd
+      - windows
+    goarch:
+      - amd64
+      - arm
+      - arm64
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+release:
+  gitlab:
+    owner: baez90
+    name: speedtest-prometheus-exporter

@@ -1,0 +1,48 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  OUT_DIR: ./out
+
+tasks:
+  clean:
+    cmds:
+      - rm -rf ./main {{ .OUT_DIR }}
+
+  format:
+    cmds:
+      - go fmt ./...
+
+  test:
+    sources:
+      - "**/*.go"
+    cmds:
+      - mkdir -p {{ .OUT_DIR }}
+      - go test -coverprofile={{ .OUT_DIR }}/cov-raw.out -v ./...
+      - grep -v "generated" {{ .OUT_DIR }}/cov-raw.out > {{ .OUT_DIR }}/cov.out
+      - rm -f {{ .OUT_DIR }}/cov-raw.out
+
+  cli-cover-report:
+    deps:
+      - test
+    cmds:
+      - go tool cover -func={{ .OUT_DIR }}/cov.out
+
+  html-cover-report:
+    deps:
+      - test
+    cmds:
+      - go tool cover -html={{ .OUT_DIR }}/cov.out -o {{ .OUT_DIR }}/coverage.html
+
+  snapshot-release:
+    deps:
+      - test
+    cmds:
+      - goreleaser release --snapshot --skip-publish --rm-dist
+
+  release:
+    deps:
+      - test
+    cmds:
+      - goreleaser release
